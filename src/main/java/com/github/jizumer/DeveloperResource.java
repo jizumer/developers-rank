@@ -17,7 +17,7 @@ public class DeveloperResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getDeveloper(int id) {
-        return "{ \"id\": 1 }";
+    public Developer getDeveloperById(int id) {
+        return Developer.builder().id(id).build();
     }
 }
