@@ -7,10 +7,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-public class DeveloperResourceTest {
+class DeveloperResourceTest {
 
     @Test
-    public void testHelloEndpoint() {
+    void testHelloEndpoint() {
         given()
           .when().get("/developers")
           .then()
@@ -18,4 +18,12 @@ public class DeveloperResourceTest {
              .body(is("Basic developer info"));
     }
 
+    @Test
+    void shouldGetDeveloperInfoById() {
+        given()
+            .when().get("/developers/1")
+            .then()
+            .statusCode(200)
+            .body("id", is(1));
+    }
 }

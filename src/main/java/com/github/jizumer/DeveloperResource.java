@@ -13,4 +13,11 @@ public class DeveloperResource {
     public String getDeveloper() {
         return "Basic developer info";
     }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getDeveloper(int id) {
+        return "{ \"id\": 1 }";
+    }
 }
