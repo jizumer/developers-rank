@@ -40,4 +40,18 @@ class DeveloperResourceTest {
                 "email", is("john.doe@test.com")
             );
     }
+
+    @Test
+    void shouldGetDeveloperInfoWithId2() {
+        given()
+            .when().get("/developers/2")
+            .then()
+            .statusCode(200)
+            .body(
+                "id", is(2),
+                "name", is("Charles Barrow"),
+                "username", is("charles.barrow"),
+                "email", is("charles.barrow@test.com")
+            );
+    }
 }

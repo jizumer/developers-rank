@@ -8,7 +8,9 @@ public class DeveloperService {
 
     private List<Developer> developersStore = List.of(
         Developer.builder().id(1).name("John Doe").username("john.doe")
-            .email("john.doe@test.com").build()
+            .email("john.doe@test.com").build(),
+        Developer.builder().id(2).name("Charles Barrow").username("charles.barrow")
+            .email("charles.barrow@test.com").build()
     );
 
     public DeveloperResponse findDeveloperById(int id) {
