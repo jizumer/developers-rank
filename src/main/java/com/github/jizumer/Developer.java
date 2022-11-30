@@ -10,4 +10,13 @@ public class Developer {
     private String name;
     private String username;
     private String email;
+
+    public DeveloperResponse toResponse() {
+        return DeveloperResponse.builder()
+            .id(id)
+            .name(name)
+            .username(username)
+            .email(email)
+            .build();
+    }
 }
