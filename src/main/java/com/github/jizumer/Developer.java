@@ -7,4 +7,7 @@ import lombok.Getter;
 @Getter
 public class Developer {
     private int id;
+    private String name;
+    private String username;
+    private String email;
 }
