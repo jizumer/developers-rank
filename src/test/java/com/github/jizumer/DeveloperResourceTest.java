@@ -26,4 +26,19 @@ class DeveloperResourceTest {
             .statusCode(200)
             .body("id", is(1));
     }
+
+    @Test
+    void shouldGetDeveloperInfoWithId1() {
+        given()
+            .when().get("/developers/1")
+            .then()
+            .statusCode(200)
+            .body(
+                "id", is(1),
+                "name", is("John Doe"),
+                "username", is("john.doe"),
+                "email", is("john.doe@test.com"),
+                "numberOfCommits", is(2)
+            );
+    }
 }
