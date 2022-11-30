@@ -16,4 +16,12 @@ public class CommitService {
     public void save(Commit commit) {
         commitStore.add(commit);
     }
+
+    public List<Commit> findAllCommitsMadeByDeveloper(String username) {
+        return commitStore.stream().filter(commit -> commit.getUsername().equals(username)).toList();
+    }
+
+    public void clearCommits() {
+        commitStore.clear();
+    }
 }

@@ -9,6 +9,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectSpy;
 import io.restassured.http.ContentType;
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -16,6 +17,11 @@ class CommitResourceTest {
 
     @InjectSpy
     CommitService commitService;
+
+    @BeforeEach
+    void setUp() {
+        commitService.clearCommits();
+    }
 
     @Test
     void shouldPostACommit() {
