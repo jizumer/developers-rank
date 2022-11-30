@@ -37,8 +37,7 @@ class DeveloperResourceTest {
                 "id", is(1),
                 "name", is("John Doe"),
                 "username", is("john.doe"),
-                "email", is("john.doe@test.com"),
-                "numberOfCommits", is(2)
+                "email", is("john.doe@test.com")
             );
     }
 }

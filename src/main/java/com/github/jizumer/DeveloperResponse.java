@@ -11,6 +11,5 @@ public class DeveloperResponse {
     private String name;
     private String username;
     private String email;
-    private int numberOfCommits;
 
 }

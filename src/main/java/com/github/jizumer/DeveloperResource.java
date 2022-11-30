@@ -23,6 +23,6 @@ public class DeveloperResource {
     @Produces(MediaType.APPLICATION_JSON)
     public DeveloperResponse getDeveloperById(int id) {
         return DeveloperResponse.builder().id(id).name("John Doe").username("john.doe")
-            .email("john.doe@test.com").numberOfCommits(2).build();
+            .email("john.doe@test.com").build();
     }
 }
