@@ -2,8 +2,10 @@ package com.github.jizumer;
 
 import java.time.LocalDateTime;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+@EqualsAndHashCode
 @Getter
 @Builder
 public class Commit {
