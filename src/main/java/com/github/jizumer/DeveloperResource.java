@@ -19,9 +19,9 @@ public class DeveloperResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public DeveloperResponse getDeveloperById(int id) {
-        return developerService.findDeveloperById(id);
+    public DeveloperResponse getDeveloperByUsername(String username) {
+        return developerService.findDeveloperByUsername(username);
     }
 }
