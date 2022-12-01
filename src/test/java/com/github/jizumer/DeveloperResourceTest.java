@@ -1,5 +1,7 @@
 package com.github.jizumer;
 
+import com.github.jizumer.commit.Commit;
+import com.github.jizumer.commit.CommitService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectSpy;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.github.jizumer;
+package com.github.jizumer.commit;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 

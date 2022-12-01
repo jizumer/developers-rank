@@ -1,5 +1,6 @@
-package com.github.jizumer;
+package com.github.jizumer.developer;
 
+import com.github.jizumer.commit.CommitGateway;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;

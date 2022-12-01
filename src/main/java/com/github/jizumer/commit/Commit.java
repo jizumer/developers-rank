@@ -1,4 +1,4 @@
-package com.github.jizumer;
+package com.github.jizumer.commit;
 
 import java.time.LocalDateTime;
 import lombok.Builder;

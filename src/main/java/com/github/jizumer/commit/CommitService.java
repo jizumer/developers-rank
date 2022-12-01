@@ -1,4 +1,4 @@
-package com.github.jizumer;
+package com.github.jizumer.commit;
 
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

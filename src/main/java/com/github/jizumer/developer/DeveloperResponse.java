@@ -1,4 +1,4 @@
-package com.github.jizumer;
+package com.github.jizumer.developer;
 
 import lombok.Builder;
 import lombok.Getter;

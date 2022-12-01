@@ -1,4 +1,4 @@
-package com.github.jizumer;
+package com.github.jizumer.developer;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

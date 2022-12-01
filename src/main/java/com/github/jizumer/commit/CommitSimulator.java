@@ -1,4 +1,4 @@
-package com.github.jizumer;
+package com.github.jizumer.commit;
 
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
