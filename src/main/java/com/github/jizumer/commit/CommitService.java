@@ -2,9 +2,12 @@ package com.github.jizumer.commit;
 
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,10 @@ public class CommitService {
 
     private final List<Commit> commitStore = new ArrayList<>();
 
+    @Inject
+    @Channel("commit-events")
+    Emitter<Commit> commitEventEmitter;
+
     public List<Commit> findAllCommits() {
         return commitStore.stream().toList();
     }
@@ -24,6 +31,7 @@ public class CommitService {
     public void save(Commit commit) {
         System.out.println("Saving commit " + commit.toString());
         commitStore.add(commit);
+        commitEventEmitter.send(commit);
     }
 
     public Uni<List<Commit>> findAllCommitsMadeByDeveloper(String username) {

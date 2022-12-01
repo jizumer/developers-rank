@@ -1,6 +1,8 @@
 package com.github.jizumer.developer;
 
+import com.github.jizumer.commit.Commit;
 import com.github.jizumer.commit.CommitGateway;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -42,5 +44,10 @@ public class DeveloperService {
 
     private int getNumberOfCommitsMadeByDeveloper(String username) {
         return commitGateway.getAllCommitsMadeByDeveloper(username).size();
+    }
+
+    @Incoming("commit-events")
+    public void consumeCommitEvents(Commit commitEvent) {
+        System.out.println("Received commit event: " + commitEvent);
     }
 }
