@@ -6,7 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class DeveloperService {
 
-    private List<Developer> developersStore = List.of(
+    private final List<Developer> developersStore = List.of(
         Developer.builder().id(1).name("John Doe").username("john.doe")
             .email("john.doe@test.com").build(),
         Developer.builder().id(2).name("Charles Barrow").username("charles.barrow")
