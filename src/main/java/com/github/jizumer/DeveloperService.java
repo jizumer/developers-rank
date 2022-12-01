@@ -3,6 +3,7 @@ package com.github.jizumer;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
@@ -17,8 +18,9 @@ public class DeveloperService {
                     .email("john.summer@test.com").build()
     );
 
+    @Inject
     @RestClient
-    private CommitGateway commitGateway;
+    CommitGateway commitGateway;
 
     public DeveloperResponse getDeveloperByUsername(String username) {
         final var developerFound = findDeveloperByUsername(username);
