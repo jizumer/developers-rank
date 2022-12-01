@@ -31,13 +31,13 @@ public class DeveloperService {
         return developerFound.toResponse(numberOfCommits);
     }
 
-    public Developer findDeveloperByUsername(String username) {
+    private Developer findDeveloperByUsername(String username) {
         return developersStore.stream().filter(developer -> developer.getUsername().equals(username))
                 .findFirst()
                 .orElseThrow();
     }
 
-    public int getNumberOfCommitsMadeByDeveloper(String username) {
+    private int getNumberOfCommitsMadeByDeveloper(String username) {
         return commitGateway.getAllCommitsMadeByDeveloper(username).size();
     }
 }
