@@ -1,0 +1,18 @@
+###
+GET http://localhost:8080/commits/developers/john.doe
+
+###
+GET http://localhost:8080/developers/john.doe
+
+###
+POST http://localhost:8080/commits
+
+{
+  "timestamp": "2022-12-01T16:33:31.649256",
+  "hash": "123456",
+  "username": "john.doe",
+  "repository": "developer-rank",
+  "branch": "master",
+  "comment": "Hello world",
+  "lines": 25
+}
