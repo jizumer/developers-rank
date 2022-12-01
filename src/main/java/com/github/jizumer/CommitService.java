@@ -1,8 +1,10 @@
 package com.github.jizumer;
 
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,13 @@ public class CommitService {
         commitStore.add(commit);
     }
 
-    public List<Commit> findAllCommitsMadeByDeveloper(String username) {
+    public Uni<List<Commit>> findAllCommitsMadeByDeveloper(String username) {
 
-        return commitStore.stream().filter(commit -> commit.getUsername().equals(username)).toList();
+
+        return Uni.createFrom().item(commitStore.stream().filter(commit -> commit.getUsername().equals(username)).toList())
+                .onItem()
+                .delayIt()
+                .by(Duration.ofMillis(lag));
     }
 
     public void clearCommits() {

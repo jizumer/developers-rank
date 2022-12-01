@@ -1,15 +1,13 @@
 package com.github.jizumer;
 
-import java.util.List;
+import io.smallrye.mutiny.Uni;
+
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 @Consumes("application/json")
 @Path("/commits")
@@ -30,7 +28,7 @@ public class CommitResource {
     @GET
     @Path("/developers/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Commit> getAllCommitsByDeveloper(String username) {
+    public Uni<List<Commit>> getAllCommitsByDeveloper(String username) {
         return commitService.findAllCommitsMadeByDeveloper(username);
     }
 }
