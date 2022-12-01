@@ -5,6 +5,9 @@ GET http://localhost:8080/commits/developers/john.doe
 GET http://localhost:8080/developers/john.doe
 
 ###
+GET http://localhost:8080/developers/john.summer
+
+###
 POST http://localhost:8080/commits
 
 {

@@ -21,6 +21,7 @@ public class CommitService {
     }
 
     public void save(Commit commit) {
+        System.out.println("Saving commit " + commit.toString());
         commitStore.add(commit);
     }
 
@@ -36,4 +37,6 @@ public class CommitService {
     public void clearCommits() {
         commitStore.clear();
     }
+
+
 }

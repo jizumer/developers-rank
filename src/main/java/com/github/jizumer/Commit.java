@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @EqualsAndHashCode
 @Getter
 @Builder
+@ToString
 public class Commit {
     private LocalDateTime timestamp;
     private String hash;

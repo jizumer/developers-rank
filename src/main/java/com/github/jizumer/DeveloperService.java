@@ -24,6 +24,8 @@ public class DeveloperService {
     @RestClient
     CommitGateway commitGateway;
 
+
+
     public DeveloperResponse getDeveloperByUsername(String username) {
         final var developerFound = findDeveloperByUsername(username);
         final var numberOfCommits = getNumberOfCommitsMadeByDeveloper(developerFound.getUsername());
