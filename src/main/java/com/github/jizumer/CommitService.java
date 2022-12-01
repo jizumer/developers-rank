@@ -1,13 +1,18 @@
 package com.github.jizumer;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class CommitService {
 
-    private List<Commit> commitStore = new ArrayList<>();
+    @ConfigProperty(name = "lag")
+    Integer lag;
+
+    private final List<Commit> commitStore = new ArrayList<>();
 
     public List<Commit> findAllCommits() {
         return commitStore.stream().toList();
@@ -18,6 +23,7 @@ public class CommitService {
     }
 
     public List<Commit> findAllCommitsMadeByDeveloper(String username) {
+
         return commitStore.stream().filter(commit -> commit.getUsername().equals(username)).toList();
     }
 
