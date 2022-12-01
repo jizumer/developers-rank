@@ -1,6 +1,7 @@
 package com.github.jizumer.commit;
 
 import io.smallrye.mutiny.Uni;
+import lombok.Setter;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -12,6 +13,7 @@ import java.util.List;
 public class CommitService {
 
     @ConfigProperty(name = "lag")
+    @Setter
     Integer lag;
 
     private final List<Commit> commitStore = new ArrayList<>();
