@@ -1,6 +1,7 @@
 package com.github.jizumer.commit;
 
 import io.quarkus.runtime.StartupEvent;
+import io.quarkus.runtime.configuration.ProfileManager;
 import io.smallrye.mutiny.Multi;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,9 +27,11 @@ public class CommitSimulator {
     CommitService commitService;
 
     void onStart(@Observes StartupEvent startupEvent) {
-        Multi.createFrom().ticks().every(Duration.ofSeconds(2))
-                .subscribe()
-                .with(this::generateRandomCommit);
+        if (ProfileManager.getActiveProfile().equals("dev")) {
+            Multi.createFrom().ticks().every(Duration.ofSeconds(2))
+                    .subscribe()
+                    .with(this::generateRandomCommit);
+        }
     }
 
     private void generateRandomCommit(Long executionTime) {

@@ -123,6 +123,6 @@ class DeveloperResourceTest {
         given()
                 .when().get("/developers/john.doe")
                 .then()
-                .statusCode(500);
+                .statusCode(200);
     }
 }
