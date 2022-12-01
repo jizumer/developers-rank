@@ -78,7 +78,7 @@ class CommitResourceTest {
     }
 
     @Test
-    void shouldAllCommitsMadeByADeveloper() {
+    void shouldGetAllCommitsMadeByADeveloper() {
         final var firstCommit = Commit.builder()
             .timestamp(LocalDateTime.parse("2022-11-29T10:24:22.876813"))
             .hash("5f1bce8")
