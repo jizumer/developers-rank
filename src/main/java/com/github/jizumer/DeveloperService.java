@@ -4,19 +4,21 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class DeveloperService {
 
-    private final List<Developer> developersStore = List.of(
-            Developer.builder().name("John Doe").username("john.doe")
-                    .email("john.doe@test.com").build(),
-            Developer.builder().name("Charles Barrow").username("charles.barrow")
-                    .email("charles.barrow@test.com").build(),
-            Developer.builder().name("John Summer").username("john.summer")
-                    .email("john.summer@test.com").build()
-    );
+    private final List<Developer> developersStore = new ArrayList<>() {{
+        add(Developer.builder().name("John Doe").username("john.doe")
+                .email("john.doe@test.com").build());
+        add(Developer.builder().name("Charles Barrow").username("charles.barrow")
+                .email("charles.barrow@test.com").build());
+        add(Developer.builder().name("John Summer").username("john.summer")
+                .email("john.summer@test.com").build());
+    }};
+
 
     @Inject
     @RestClient
