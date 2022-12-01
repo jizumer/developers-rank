@@ -10,11 +10,12 @@ public class Developer {
     private String username;
     private String email;
 
-    public DeveloperResponse toResponse() {
+    public DeveloperResponse toResponse(int numberOfCommits) {
         return DeveloperResponse.builder()
-            .name(name)
-            .username(username)
-            .email(email)
-            .build();
+                .name(name)
+                .username(username)
+                .email(email)
+                .numberOfCommits(numberOfCommits)
+                .build();
     }
 }

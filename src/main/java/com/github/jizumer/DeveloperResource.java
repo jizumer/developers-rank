@@ -22,6 +22,6 @@ public class DeveloperResource {
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public DeveloperResponse getDeveloperByUsername(String username) {
-        return developerService.findDeveloperByUsername(username);
+        return developerService.getDeveloperByUsername(username);
     }
 }

@@ -1,5 +1,7 @@
 package com.github.jizumer;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
@@ -15,9 +17,23 @@ public class DeveloperService {
                     .email("john.summer@test.com").build()
     );
 
-    public DeveloperResponse findDeveloperByUsername(String username) {
-        return developersStore.stream().filter(developer -> developer.getUsername().equals(username)).findFirst()
-                .orElseThrow()
-                .toResponse();
+    @RestClient
+    private CommitGateway commitGateway;
+
+    public DeveloperResponse getDeveloperByUsername(String username) {
+        final var developerFound = findDeveloperByUsername(username);
+        final var numberOfCommits = getNumberOfCommitsMadeByDeveloper(developerFound.getUsername());
+
+        return developerFound.toResponse(numberOfCommits);
+    }
+
+    public Developer findDeveloperByUsername(String username) {
+        return developersStore.stream().filter(developer -> developer.getUsername().equals(username))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    public int getNumberOfCommitsMadeByDeveloper(String username) {
+        return commitGateway.getAllCommitsMadeByDeveloper(username).size();
     }
 }
