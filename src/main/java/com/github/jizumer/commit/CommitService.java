@@ -1,8 +1,8 @@
 package com.github.jizumer.commit;
 
 import io.smallrye.mutiny.Uni;
-import lombok.Setter;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.Duration;
@@ -13,7 +13,6 @@ import java.util.List;
 public class CommitService {
 
     @ConfigProperty(name = "lag")
-    @Setter
     Integer lag;
 
     private final List<Commit> commitStore = new ArrayList<>();
@@ -38,6 +37,12 @@ public class CommitService {
 
     public void clearCommits() {
         commitStore.clear();
+    }
+
+    @Incoming("config-events")
+    public void consumeConfigEvent(Integer lag) {
+        System.out.println("Configuring new lag: " + lag);
+        this.lag = lag;
     }
 
 

@@ -1,6 +1,7 @@
 package com.github.jizumer.config;
 
-import com.github.jizumer.commit.CommitService;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -12,11 +13,11 @@ import javax.ws.rs.Path;
 public class ConfigResource {
 
     @Inject
-    CommitService commitService;
+    @Channel("config-events")
+    Emitter<Integer> configEmitter;
 
     @POST
     public void configureLag(Integer lag) {
-        System.out.println("configuring new lag: " + lag);
-        commitService.setLag(lag);
+        configEmitter.send(lag);
     }
 }

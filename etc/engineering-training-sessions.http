@@ -7,7 +7,7 @@ GET http://localhost:8080/developers/john.doe
 ###
 POST http://localhost:8080/config
 
-3000
+1000
 
 ###
 GET http://localhost:8080/developers/john.summer
