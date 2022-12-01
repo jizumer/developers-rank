@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.when;
 
 @QuarkusTest
 class DeveloperResourceTest {
@@ -110,5 +111,16 @@ class DeveloperResourceTest {
                 .then()
                 .statusCode(200)
                 .body("numberOfCommits", is(2));
+    }
+
+    @Test
+    void shouldReturnErrorWhenCommitServiceAlsoReturnsErrorWhenGettingDeveloperInfo() {
+        when(commitService.findAllCommitsMadeByDeveloper("john.doe"))
+                .thenThrow(NullPointerException.class);
+
+        given()
+                .when().get("/developers/john.doe")
+                .then()
+                .statusCode(500);
     }
 }
