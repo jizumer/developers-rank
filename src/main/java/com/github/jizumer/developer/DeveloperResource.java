@@ -1,5 +1,7 @@
 package com.github.jizumer.developer;
 
+import io.smallrye.mutiny.Uni;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,7 +23,7 @@ public class DeveloperResource {
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public DeveloperResponse getDeveloperByUsername(String username) {
+    public Uni<Developer> getDeveloperByUsername(String username) {
         return developerService.getDeveloperByUsername(username);
     }
 }

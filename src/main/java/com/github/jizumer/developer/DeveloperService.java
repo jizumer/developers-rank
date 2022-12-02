@@ -1,6 +1,7 @@
 package com.github.jizumer.developer;
 
 import com.github.jizumer.commit.Commit;
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -32,20 +33,26 @@ public class DeveloperService {
     }};
 
 
-    public DeveloperResponse getDeveloperByUsername(String username) {
-        return findDeveloperByUsername(username).toResponse();
+    public Uni<Developer> getDeveloperByUsername(String username) {
+        return findDeveloperByUsername(username);
     }
 
-    private Developer findDeveloperByUsername(String username) {
-        return developersStore.stream().filter(developer -> developer.getUsername().equals(username))
-                .findFirst()
-                .orElseThrow();
+    private Uni<Developer> findDeveloperByUsername(String username) {
+        return Uni.createFrom().item(
+                developersStore
+                        .stream()
+                        .filter(developer
+                                -> developer.getUsername().equals(username))
+                        .findFirst()
+                        .orElseThrow());
     }
 
     @Incoming("commit-events")
-    public void consumeCommitEvents(Commit commitEvent) {
-        findDeveloperByUsername(commitEvent.getUsername())
-                .addNumberOfCommits(1);
-        System.out.println("Received commit event: " + commitEvent);
+    public Uni<Developer> consumeCommitEvents(Commit commitEvent) {
+        return findDeveloperByUsername(commitEvent.getUsername())
+                .onItem().transform(developer ->
+                        developer.addNumberOfCommits(1))
+                .onItem()
+                .invoke(() -> System.out.println("Received commit event: " + commitEvent));
     }
 }

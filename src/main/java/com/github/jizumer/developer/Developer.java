@@ -12,16 +12,8 @@ public class Developer {
 
     private int numberOfCommits;
 
-    public DeveloperResponse toResponse() {
-        return DeveloperResponse.builder()
-                .name(name)
-                .username(username)
-                .email(email)
-                .numberOfCommits(numberOfCommits)
-                .build();
-    }
-
-    public void addNumberOfCommits(int numberOfCommits) {
+    public Developer addNumberOfCommits(int numberOfCommits) {
         this.numberOfCommits += numberOfCommits;
+        return this;
     }
 }
