@@ -52,7 +52,6 @@ public class DeveloperService {
         return findDeveloperByUsername(commitEvent.getUsername())
                 .onItem().transform(developer ->
                         developer.addNumberOfCommits(1))
-                .onItem()
-                .invoke(() -> System.out.println("Received commit event: " + commitEvent));
+                .log("Received commit event: " + commitEvent);
     }
 }
