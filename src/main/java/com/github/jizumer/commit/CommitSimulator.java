@@ -35,7 +35,6 @@ public class CommitSimulator {
     }
 
     private void generateRandomCommit(Long executionTime) {
-
         commitService.save(Commit.builder()
                 .timestamp(LocalDateTime.now())
                 .hash(UUID.randomUUID().toString())
@@ -46,7 +45,7 @@ public class CommitSimulator {
                 .branch("master")
                 .comment("Commit number " + executionTime)
                 .lines(RandomGenerator.getDefault().nextInt(100))
-                .build());
+                .build()).await().atMost(Duration.ofSeconds(30));
     }
 
 

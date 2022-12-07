@@ -28,10 +28,14 @@ public class CommitService {
         return commitStore.stream().toList();
     }
 
-    public void save(Commit commit) {
-        System.out.println("Saving commit " + commit.toString());
-        commitStore.add(commit);
-        commitEventEmitter.send(commit);
+    public Uni<Void> save(Commit commit) {
+        return Uni
+                .createFrom()
+                .item(commit)
+                .log("Saving commit " + commit.toString())
+                .invoke(commitStore::add)
+                .invoke(commitEventEmitter::send)
+                .replaceWithVoid();
     }
 
     public Uni<List<Commit>> findAllCommitsMadeByDeveloper(String username) {
