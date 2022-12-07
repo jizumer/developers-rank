@@ -52,9 +52,13 @@ public class CommitService {
     }
 
     @Incoming("config-events")
-    public void consumeConfigEvent(Integer lag) {
-        System.out.println("Configuring new lag: " + lag);
-        this.lag = lag;
+    public Uni<Void> consumeConfigEvent(Integer lag) {
+        return Uni
+                .createFrom()
+                .item(lag)
+                .log("Configuring new lag: " + lag)
+                .invoke(() -> this.lag = lag)
+                .replaceWithVoid();
     }
 
 
