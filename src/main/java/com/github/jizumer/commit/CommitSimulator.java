@@ -3,6 +3,7 @@ package com.github.jizumer.commit;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.configuration.ProfileManager;
 import io.smallrye.mutiny.Multi;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -16,6 +17,8 @@ import java.util.random.RandomGenerator;
 @ApplicationScoped
 public class CommitSimulator {
 
+    @ConfigProperty(name = "simulate-commits", defaultValue = "false")
+    boolean simulateCommits;
 
     private final List<String> developers = List.of(
             "john.doe",
@@ -27,7 +30,8 @@ public class CommitSimulator {
     CommitService commitService;
 
     void onStart(@Observes StartupEvent startupEvent) {
-        if (ProfileManager.getActiveProfile().equals("dev")) {
+        if (simulateCommits &&
+                ProfileManager.getActiveProfile().equals("dev")) {
             Multi.createFrom().ticks().every(Duration.ofSeconds(2))
                     .subscribe()
                     .with(this::generateRandomCommit);
