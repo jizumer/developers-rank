@@ -10,9 +10,6 @@ POST http://localhost:8080/config
 5000
 
 ###
-GET http://localhost:8080/developers/john.summer
-
-###
 POST http://localhost:8080/commits
 
 {
@@ -24,3 +21,7 @@ POST http://localhost:8080/commits
   "comment": "Hello world",
   "lines": 25
 }
+
+
+###
+POST http://localhost:8080/deploy

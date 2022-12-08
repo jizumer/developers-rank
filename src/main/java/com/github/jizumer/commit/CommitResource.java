@@ -14,21 +14,21 @@ import java.util.List;
 public class CommitResource {
 
     @Inject
-    CommitService commitService;
+    CommitUseCase commitUseCase;
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postCommit(Commit commit) {
-
-        commitService.save(commit);
-
-        return Response.status(Status.CREATED).build();
+    public Uni<Response> postCommit(Commit commit) {
+        return commitUseCase.commit(commit)
+                .onItem()
+                .transform(
+                        unused -> Response.status(Status.CREATED).build());
     }
 
     @GET
     @Path("/developers/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<List<Commit>> getAllCommitsByDeveloper(String username) {
-        return commitService.findAllCommitsMadeByDeveloper(username);
+        return commitUseCase.findAllCommitsMadeByDeveloper(username);
     }
 }
