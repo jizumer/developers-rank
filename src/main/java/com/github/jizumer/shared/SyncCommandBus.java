@@ -31,7 +31,8 @@ public class SyncCommandBus implements CommandBus {
     public Uni<Void> dispatch(final Command command) {
         return subscribedCommandHandlers.entrySet().stream()
                 .filter(handler -> command.getClass().equals(handler.getValue().subscribedTo()))
-                .findFirst().get().getValue()
+                .findFirst().
+                get().getValue()
                 .consume(command);
 
     }

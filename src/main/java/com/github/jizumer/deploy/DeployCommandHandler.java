@@ -1,24 +1,20 @@
 package com.github.jizumer.deploy;
 
-import com.github.jizumer.shared.CommandHandler;
+import com.github.jizumer.shared.AsyncCommandHandler;
 import io.smallrye.mutiny.Uni;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class DeployCommandHandler implements CommandHandler<DeployCommand> {
+public class DeployCommandHandler implements AsyncCommandHandler<DeployCommand> {
 
     @Inject
     DeployService deployService;
 
-    @Override
-    public Class subscribedTo() {
-        return DeployCommand.class;
-    }
-
-    @Override
-    public Uni<Void> consume(DeployCommand command) {
+    @Incoming("async-commands")
+    public Uni<Void> consume(DeployCommand deployCommand) {
         return deployService.deploy();
     }
 }
