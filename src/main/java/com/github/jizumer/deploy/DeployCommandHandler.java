@@ -1,6 +1,5 @@
 package com.github.jizumer.deploy;
 
-import com.github.jizumer.commit.CommitCommand;
 import com.github.jizumer.shared.CommandHandler;
 import io.smallrye.mutiny.Uni;
 
@@ -15,7 +14,7 @@ public class DeployCommandHandler implements CommandHandler<DeployCommand> {
 
     @Override
     public Class subscribedTo() {
-        return CommitCommand.class;
+        return DeployCommand.class;
     }
 
     @Override

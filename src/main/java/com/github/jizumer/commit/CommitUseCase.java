@@ -1,6 +1,6 @@
 package com.github.jizumer.commit;
 
-import com.github.jizumer.deploy.DeployService;
+import com.github.jizumer.deploy.DeployCommand;
 import com.github.jizumer.shared.SyncCommandBus;
 import io.smallrye.mutiny.Uni;
 
@@ -15,16 +15,14 @@ public class CommitUseCase {
     CommitService commitService;
 
     @Inject
-    DeployService deployService;
-
-    @Inject
     SyncCommandBus syncCommandBus;
 
     public Uni<Void> commit(Commit commit) {
         return Uni.createFrom().voidItem().onItem()
                 .call(() ->
                         syncCommandBus.dispatch(new CommitCommand(commit)))
-                .call(deployService::deploy);
+                .call(() ->
+                        syncCommandBus.dispatch(new DeployCommand()));
     }
 
     public Uni<List<Commit>> findAllCommitsMadeByDeveloper(String username) {
