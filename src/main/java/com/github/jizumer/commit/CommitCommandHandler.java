@@ -1,8 +1,12 @@
 package com.github.jizumer.commit;
 
 import com.github.jizumer.shared.CommandHandler;
+import io.smallrye.mutiny.Uni;
+
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+@ApplicationScoped
 public class CommitCommandHandler implements CommandHandler<CommitCommand> {
 
     @Inject
@@ -14,7 +18,7 @@ public class CommitCommandHandler implements CommandHandler<CommitCommand> {
     }
 
     @Override
-    public void consume(CommitCommand command) {
-        commitService.save(command.getCommit());
+    public Uni<Void> consume(CommitCommand command) {
+        return commitService.save(command.getCommit());
     }
 }

@@ -1,23 +1,24 @@
 package com.github.jizumer.shared;
 
-import com.github.jizumer.commit.CommitCommandHandler;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import io.smallrye.mutiny.Uni;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 @ApplicationScoped
 public class SyncCommandBus implements CommandBus {
 
+    @Inject
+    Instance<CommandHandler<?>> commandHandlers;
 
     //Assuming for now that we will only support one handler per command
     Map<Class, CommandHandler> subscribedCommandHandlers = new HashMap<>();
 
-
-    public SyncCommandBus() {
-        final Set<CommandHandler> commandHandlers = new HashSet<>();
-        commandHandlers.add(new CommitCommandHandler());
+    public SyncCommandBus(Instance<CommandHandler<?>> commandHandlers) {
+        this.commandHandlers = commandHandlers;
         commandHandlers.forEach(this::subscribe);
     }
 
@@ -27,11 +28,11 @@ public class SyncCommandBus implements CommandBus {
     }
 
     @Override
-    public void dispatch(final Command command) {
-        subscribedCommandHandlers.entrySet().stream()
+    public Uni<Void> dispatch(final Command command) {
+        return subscribedCommandHandlers.entrySet().stream()
                 .filter(handler -> command.getClass().equals(handler.getValue().subscribedTo()))
-                .findFirst()
-                .ifPresent(handler -> handler.getValue().consume(command));
+                .findFirst().get().getValue()
+                .consume(command);
 
     }
 }

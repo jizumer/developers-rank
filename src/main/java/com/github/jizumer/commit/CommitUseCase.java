@@ -22,8 +22,9 @@ public class CommitUseCase {
 
     public Uni<Void> commit(Commit commit) {
         return Uni.createFrom().voidItem().onItem()
-            .invoke(() -> syncCommandBus.dispatch(new CommitCommand(commit)))
-            .call(deployService::deploy);
+                .call(() ->
+                        syncCommandBus.dispatch(new CommitCommand(commit)))
+                .call(deployService::deploy);
     }
 
     public Uni<List<Commit>> findAllCommitsMadeByDeveloper(String username) {
