@@ -1,9 +1,13 @@
 package com.github.jizumer.shared;
 
+import com.github.jizumer.commit.CommitCommandHandler;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import javax.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class SyncCommandBus implements CommandBus {
 
 
@@ -11,7 +15,9 @@ public class SyncCommandBus implements CommandBus {
     Map<Class, CommandHandler> subscribedCommandHandlers = new HashMap<>();
 
 
-    public SyncCommandBus(final Set<CommandHandler> commandHandlers) {
+    public SyncCommandBus() {
+        final Set<CommandHandler> commandHandlers = new HashSet<>();
+        commandHandlers.add(new CommitCommandHandler());
         commandHandlers.forEach(this::subscribe);
     }
 
