@@ -11,16 +11,26 @@ public class _10_BackPressureBuffering {
         System.out.println("⚡️ Back-pressure: buffer");
 
         Multi.createFrom().emitter(emitter -> ConfigurableEmitter.emitEvery(emitter, 250), BackPressureStrategy.ERROR)
-                .onOverflow().buffer(32)
+                .onOverflow()
+                //.invoke((object) -> System.out.println("Overflow in buffer with element " + object))
+                .buffer(32)
                 .subscribe().withSubscriber(new MultiSubscriber<Object>() {
+                    private Subscription subscription;
                     @Override
                     public void onSubscribe(Subscription s) {
-                        s.request(5);
+                        this.subscription = s;
+                        s.request(1);
                     }
 
                     @Override
                     public void onItem(Object s) {
-                        System.out.print(s + " ");
+                        System.out.println(s);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        this.subscription.request(5);
                     }
 
                     @Override

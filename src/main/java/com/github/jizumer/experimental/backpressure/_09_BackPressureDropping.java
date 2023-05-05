@@ -11,16 +11,19 @@ public class _09_BackPressureDropping {
         System.out.println("⚡️ Back-pressure: drop");
 
         Multi.createFrom().emitter(emitter -> ConfigurableEmitter.emitEvery(emitter, 250), BackPressureStrategy.ERROR)
-                //.onOverflow().invoke(s -> System.out.print("🚨 ")).drop() // Comment out for some fun
+                .onOverflow().invoke(s -> System.out.println("🚨 ")).drop() // Comment out for some fun
                 .subscribe().withSubscriber(new MultiSubscriber<Object>() {
+                    private Subscription subscription;
                     @Override
                     public void onSubscribe(Subscription s) {
-                        s.request(5);
+                        this.subscription = s;
+                        subscription.request(1);
                     }
 
                     @Override
                     public void onItem(Object s) {
-                        System.out.print(s + " ");
+                        System.out.println(s + " ");
+                        subscription.request(5);
                     }
 
                     @Override
@@ -34,5 +37,5 @@ public class _09_BackPressureDropping {
                     }
                 });
     }
-    
+
 }

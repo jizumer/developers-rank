@@ -6,7 +6,7 @@ import org.reactivestreams.Subscription;
 
 public class _08_BackPressureHandshakeDetailed {
     public static void main(String[] args) {
-        Multi.createFrom().range(0, 1000)
+        Multi.createFrom().range(0, 10)
                 .onSubscription().invoke(sub -> System.out.println("Received subscription: " + sub))
                 .onRequest().invoke(req -> System.out.println("Got a request: " + req))
                 .onItem().transform(i -> i * 100)

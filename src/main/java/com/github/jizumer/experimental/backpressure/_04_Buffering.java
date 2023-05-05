@@ -25,7 +25,7 @@ public class _04_Buffering {
                         new Thread(() -> {
                             while (true) {
                                 try {
-                                    Thread.sleep(5_000);
+                                    Thread.sleep(5000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
