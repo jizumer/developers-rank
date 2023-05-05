@@ -4,9 +4,9 @@ import io.smallrye.mutiny.Multi;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-public class _05_BackPressureHandshakeDetailed {
+public class _08_BackPressureHandshakeDetailed {
     public static void main(String[] args) {
-        Multi.createFrom().range(0, 10)
+        Multi.createFrom().range(0, 1000)
                 .onSubscription().invoke(sub -> System.out.println("Received subscription: " + sub))
                 .onRequest().invoke(req -> System.out.println("Got a request: " + req))
                 .onItem().transform(i -> i * 100)

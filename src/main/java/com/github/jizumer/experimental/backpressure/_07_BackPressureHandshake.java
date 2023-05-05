@@ -2,7 +2,7 @@ package com.github.jizumer.experimental.backpressure;
 
 import io.smallrye.mutiny.Multi;
 
-public class _04_BackPressureHandshake {
+public class _07_BackPressureHandshake {
     public static void main(String[] args){
         Multi.createFrom().range(0, 100)
                 .onSubscription().invoke(sub -> System.out.println("Received subscription: " + sub))

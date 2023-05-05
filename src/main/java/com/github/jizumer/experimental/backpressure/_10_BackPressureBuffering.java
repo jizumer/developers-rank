@@ -2,17 +2,16 @@ package com.github.jizumer.experimental.backpressure;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.subscription.BackPressureStrategy;
-import io.smallrye.mutiny.subscription.MultiEmitter;
 import io.smallrye.mutiny.subscription.MultiSubscriber;
 import org.reactivestreams.Subscription;
 
-public class _05_BackPressure {
+public class _10_BackPressureBuffering {
 
     public static void main(String[] args) {
-        System.out.println("⚡️ Back-pressure: drop");
+        System.out.println("⚡️ Back-pressure: buffer");
 
-        Multi.createFrom().emitter(emitter -> emitTooFast(emitter), BackPressureStrategy.ERROR)
-                //.onOverflow().invoke(s -> System.out.print("🚨 ")).drop() // Comment out for some fun
+        Multi.createFrom().emitter(emitter -> ConfigurableEmitter.emitEvery(emitter, 250), BackPressureStrategy.ERROR)
+                .onOverflow().buffer(32)
                 .subscribe().withSubscriber(new MultiSubscriber<Object>() {
                     @Override
                     public void onSubscribe(Subscription s) {
@@ -34,18 +33,5 @@ public class _05_BackPressure {
                         System.out.println("\n✅");
                     }
                 });
-    }
-
-    private static void emitTooFast(MultiEmitter<? super Object> emitter) {
-        new Thread(() -> {
-            while (true) {
-                emitter.emit("📦");
-                try {
-                    Thread.sleep(250);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 }
